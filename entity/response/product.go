@@ -18,10 +18,24 @@ type GetProductDetailResponse struct {
 	Deskripsi string `json:"deskripsi"`
 }
 
+type GetProductFilteredResponse struct {
+	Nama      string `json:"nama"`
+	Foto      string `json:"foto"`
+	Harga     int    `json:"harga"`
+	Deskripsi string `json:"deskripsi"`
+	Kategori  string `json:"kategori"`
+}
+
 type AddToCartRequest struct {
 	Nama      string `json:"nama"`
 	Foto      string `json:"foto"`
 	Harga     int    `json:"harga"`
 	Deskripsi string `json:"deskripsi"`
 	Kategori  string `json:"kategori"`
+}
+type GetCartResponse struct {
+	Nama     string `json:"nama"`
+	Foto     string `json:"foto"`
+	Harga    int    `json:"harga"`
+	Kategori string `json:"kategori"`
 }

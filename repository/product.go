@@ -2,14 +2,15 @@ package repository
 
 import (
 	"efishery-ecommerce/entity"
-	"fmt"
 	"gorm.io/gorm"
 )
 
 type IProductRepository interface {
 	GetAll() ([]entity.Product, error)
 	GetProductsById(id string) (entity.Product, error)
-	AddToCart([]entity.Cart) error
+	GetFiltered(category string, hargaterendah string, hargatertinggi string) ([]entity.Product, error)
+	AddToCart(entity.Cart) error
+	GetCartAll() ([]entity.Cart, error)
 }
 
 type ProductRepository struct {
@@ -35,10 +36,39 @@ func (u ProductRepository) GetProductsById(id string) (entity.Product, error) {
 	return products, nil
 }
 
-func (u ProductRepository) AddToCart(cart []entity.Cart) error {
+func (u ProductRepository) GetFiltered(category string, hargaterendah string, hargatertinggi string) ([]entity.Product, error) {
+	var products []entity.Product
+	var err error
+	if hargaterendah == "" {
+		hargaterendah = "0"
+	}
+	if hargatertinggi == "" {
+		hargatertinggi = "9999999999999"
+	}
+
+	if category == "" {
+		err = u.db.Debug().Where("Harga <= ? AND Harga >= ?", hargatertinggi, hargaterendah).Find(&products).Error
+	} else {
+		err = u.db.Debug().Where("Kategori = ? AND Harga <= ? AND Harga >= ?", category, hargatertinggi, hargaterendah).Find(&products).Error
+	}
+
+	if err != nil {
+		//fmt.Println("hayo gagal filter")
+		return nil, err
+	}
+	return products, nil
+}
+
+func (u ProductRepository) AddToCart(cart entity.Cart) error {
 	if err := u.db.Create(&cart).Error; err != nil {
-		fmt.Println("gagal disini")
 		return err
 	}
 	return nil
+}
+func (u ProductRepository) GetCartAll() ([]entity.Cart, error) {
+	var carts []entity.Cart
+	if err := u.db.Debug().Find(&carts).Error; err != nil {
+		return nil, nil
+	}
+	return carts, nil
 }

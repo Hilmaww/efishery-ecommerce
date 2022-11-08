@@ -8,9 +8,11 @@ import (
 )
 
 type IProductUsecase interface {
-	CreateProductFilter() error
 	GetProductList() ([]response.GetProductResponse, error)
-	AddProductToCart(req []response.AddToCartRequest) ([]response.AddToCartRequest, error)
+	GetProductDetail(id string) ([]response.GetProductDetailResponse, error)
+	GetFilteredProduct(category string, hargaterendah string, hargatertinggi string) ([]response.GetProductResponse, error)
+	AddProductToCart(req *response.AddToCartRequest) (response.AddToCartRequest, error)
+	GetCartList() ([]response.GetCartResponse, error)
 }
 type ProductUsecase struct {
 	productRepository repository.IProductRepository
@@ -40,14 +42,35 @@ func (u ProductUsecase) GetProductDetail(id string) ([]response.GetProductDetail
 	return productResponse, nil
 }
 
-func (u ProductUsecase) AddProductToCart(req []response.AddToCartRequest) ([]response.AddToCartRequest, error) {
-	var cart []entity.Cart
+func (u ProductUsecase) AddProductToCart(req *response.AddToCartRequest) (response.AddToCartRequest, error) {
+	var cart entity.Cart
 	copier.Copy(&cart, &req)
 	err := u.productRepository.AddToCart(cart)
 	if err != nil {
-		return nil, nil
+		return response.AddToCartRequest{}, nil
 	}
-	var productResponse []response.AddToCartRequest
+	var productResponse response.AddToCartRequest
 	copier.Copy(&productResponse, &cart)
 	return productResponse, nil
+}
+
+func (u ProductUsecase) GetFilteredProduct(category string, hargaterendah string, hargatertinggi string) ([]response.GetProductFilteredResponse, error) {
+
+	products, err := u.productRepository.GetFiltered(category, hargaterendah, hargatertinggi)
+	if err != nil {
+		return nil, err
+	}
+	var productResponse []response.GetProductFilteredResponse
+	copier.Copy(&productResponse, &products)
+	return productResponse, nil
+}
+
+func (u ProductUsecase) GetCartList() ([]response.GetCartResponse, error) {
+	carts, err := u.productRepository.GetCartAll()
+	if err != nil {
+		return nil, nil
+	}
+	var cartsResponse []response.GetCartResponse
+	copier.Copy(&cartsResponse, &carts)
+	return cartsResponse, nil
 }

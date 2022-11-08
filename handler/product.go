@@ -3,9 +3,7 @@ package handler
 import (
 	"efishery-ecommerce/entity/response"
 	"efishery-ecommerce/usecase"
-	"encoding/json"
 	"fmt"
-	"github.com/jinzhu/copier"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
@@ -66,33 +64,36 @@ func (h ProductHandler) GetProductDetail(ctx echo.Context) error {
 	})
 }
 
-//func (h ProductHandler) GetProductPerCategory(ctx echo.Context) error {
-//	category := ctx.QueryParam("category")
-//	products, err := h.productUsecase.GetProductDetail(id)
-//	if err != nil {
-//		return ctx.JSON(http.StatusBadRequest, response.BaseResponse{
-//			Code:    http.StatusBadRequest,
-//			Message: "get list product failed",
-//			Data:    nil,
-//		})
-//	}
-//	if len(products) < 0 {
-//		return ctx.JSON(http.StatusNoContent, response.BaseResponse{
-//			Code:    http.StatusNoContent,
-//			Message: "no products found",
-//			Data:    nil,
-//		})
-//	}
-//	return ctx.JSON(http.StatusOK, response.BaseResponse{
-//		Code:    http.StatusOK,
-//		Message: "successfully get list all products",
-//		Data:    products,
-//	})
-//}
+func (h ProductHandler) GetProductFilter(ctx echo.Context) error {
+	category := ctx.QueryParam("kategori")
+	hargaterendah := ctx.QueryParam("hargaterendah")
+	hargatertinggi := ctx.QueryParam("hargatertinggi")
+	products, err := h.productUsecase.GetFilteredProduct(category, hargaterendah, hargatertinggi)
+	if err != nil {
+		return ctx.JSON(http.StatusBadRequest, response.BaseResponse{
+			Code:    http.StatusBadRequest,
+			Message: "get filtered product failed",
+			Data:    nil,
+		})
+	}
+	fmt.Println(len(products))
+	if len(products) == 0 {
+		return ctx.JSON(http.StatusFound, response.BaseResponse{
+			Code:    http.StatusNoContent,
+			Message: "no products found",
+			Data:    map[string]interface{}{},
+		})
+	}
+	return ctx.JSON(http.StatusOK, response.BaseResponse{
+		Code:    http.StatusOK,
+		Message: "successfully get all filtered products",
+		Data:    products,
+	})
+}
 
 func (h ProductHandler) AddToCart(ctx echo.Context) error {
-	var data map[string]interface{} = map[string]interface{}{}
-	if err := ctx.Bind(&data); err != nil {
+	productRequest := new(response.AddToCartRequest)
+	if err := ctx.Bind(&productRequest); err != nil {
 		fmt.Println(err)
 		return ctx.JSON(http.StatusBadRequest, response.BaseResponse{
 			Code:    http.StatusBadRequest,
@@ -100,25 +101,41 @@ func (h ProductHandler) AddToCart(ctx echo.Context) error {
 			Data:    nil,
 		})
 	}
-	var productRequest []response.AddToCartRequest
-	dataMarshaled, err := json.Marshal(data)
+	productResponse, err := h.productUsecase.AddProductToCart(productRequest)
 	if err != nil {
-		return err
+		return ctx.JSON(http.StatusBadRequest, response.BaseResponse{
+			Code:    http.StatusBadRequest,
+			Message: "Failed to add product to cart",
+			Data:    nil,
+		})
 	}
-	dataString := string(dataMarshaled)
-	copier.Copy(&productRequest, &dataString)
-	fmt.Println(productRequest)
-	//productResponse, err := h.productUsecase.AddProductToCart(productRequest)
-	//if err != nil {
-	//	return ctx.JSON(http.StatusBadRequest, response.BaseResponse{
-	//		Code:    http.StatusBadRequest,
-	//		Message: "Failed to add product to cart",
-	//		Data:    nil,
-	//	})
-	//}
 	return ctx.JSON(http.StatusCreated, response.BaseResponse{
 		Code:    http.StatusCreated,
 		Message: "product added to cart successfully",
-		Data:    nil, //productResponse,
+		Data:    productResponse,
 	})
+}
+
+func (h ProductHandler) GetCartList(ctx echo.Context) error {
+	carts, err := h.productUsecase.GetCartList()
+	if err != nil {
+		return ctx.JSON(http.StatusBadRequest, response.BaseResponse{
+			Code:    http.StatusBadRequest,
+			Message: "get list product failed",
+			Data:    nil,
+		})
+	}
+	if len(carts) < 0 {
+		return ctx.JSON(http.StatusNoContent, response.BaseResponse{
+			Code:    http.StatusNoContent,
+			Message: "no products found",
+			Data:    nil,
+		})
+	}
+	return ctx.JSON(http.StatusOK, response.BaseResponse{
+		Code:    http.StatusOK,
+		Message: "successfully get list all products",
+		Data:    carts,
+	})
+
 }
