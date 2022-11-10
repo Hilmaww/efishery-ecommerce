@@ -26,7 +26,7 @@ Database akan dibuat sebagai berikut,
 - Tabel Proof
 ![Gambar tabel proof](static_readme/Tabel_Proof.png)
 ### API Contract ###
-
+* Dokumentasi API dapat dibaca [disini](https://app.swaggerhub.com/apis-docs/HILMIAMBARI27/efishery-ecommerce/1.0.0#/developers/GetProductList)
 ### Flowchart ###
 
 ![Gambar Flowchart sistem Ecommerce](static_readme/efishery-ecommerce-flow-app@2x.png)
@@ -47,7 +47,6 @@ Database akan dibuat sebagai berikut,
 ## Alternatives ##
 - Open shop at other ecommerce platform
 - Make own platform using Shopify
-
 
 ## Development Possibilities ##
 - Membuat docker container dengan multistage
