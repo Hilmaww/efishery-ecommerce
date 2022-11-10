@@ -14,10 +14,6 @@ import (
 func main() {
 	config.Database()
 	config.AutoMigrate()
-	//err := config.Seeding()
-	//if err != nil {
-	//	panic(err)
-	//}
 
 	app := echo.New()
 
