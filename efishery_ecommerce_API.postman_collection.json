@@ -1,0 +1,698 @@
+{
+	"info": {
+		"_postman_id": "5ad279de-2602-42f5-98f7-4b464789b0c0",
+		"name": "efishery_ecommerce_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16927352"
+	},
+	"item": [
+		{
+			"name": "TestLocal",
+			"item": [
+				{
+					"name": "GetProductsList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/v1/products",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProductsDetails",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/v1/products/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCartList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/v1/cart",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostPayment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "shafly",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/HilmiFaww/Downloads/Tugas Jarkom_18120004.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/v1/payment",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"payment"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Hilmi",
+									"disabled": true
+								},
+								{
+									"key": "file",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProductFiltered",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/v1/products/filter?kategori=elektronik&hargaterendah=5000&hargatertinggi=30000",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"products",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "kategori",
+									"value": "elektronik"
+								},
+								{
+									"key": "hargaterendah",
+									"value": "5000"
+								},
+								{
+									"key": "hargatertinggi",
+									"value": "30000"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GetProductFiltered",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8080/v1/products/filter?kategori=elektronik&hargaterendah=5000&hargatertinggi=30000",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"products",
+										"filter"
+									],
+									"query": [
+										{
+											"key": "kategori",
+											"value": "elektronik"
+										},
+										{
+											"key": "hargaterendah",
+											"value": "5000"
+										},
+										{
+											"key": "hargatertinggi",
+											"value": "30000"
+										}
+									]
+								}
+							},
+							"status": "Found",
+							"code": 302,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 08 Nov 2022 11:05:12 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "53"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 204,\n    \"message\": \"no products found\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "AddToCart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama\": \"Tong Sampah\",\n    \"foto\": \"usr/static/toefue.jpg\",\n    \"harga\": 50000,\n    \"kategori\": \"alat bersih-bersih\",\n    \"deskripsi\": \"tempat membuang sampah organik/anorganik yang overrated\" \n}\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/v1/cart",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"cart"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Nambah Semsung",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nama\": \"Semsung\",\n    \"foto\": \"usr/static/semsmit.jpg\",\n    \"harga\": 3000000,\n    \"kategori\": \"alat komunikasi\",\n    \"deskripsi\": \"alat komunikasi mantap\" \n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/v1/cart",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"cart"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 08 Nov 2022 11:31:40 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "200"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 201,\n    \"message\": \"product added to cart successfully\",\n    \"data\": {\n        \"nama\": \"Semsung\",\n        \"foto\": \"usr/static/semsmit.jpg\",\n        \"harga\": 3000000,\n        \"deskripsi\": \"alat komunikasi mantap\",\n        \"kategori\": \"alat komunikasi\"\n    }\n}"
+						},
+						{
+							"name": "Nambah Tongsampah",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nama\": \"Tong Sampah\",\n    \"foto\": \"usr/static/toefue.jpg\",\n    \"harga\": 50000,\n    \"kategori\": \"alat bersih-bersih\",\n    \"deskripsi\": \"tempat membuang sampah organik/anorganik yang overrated\" \n}\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8080/v1/cart",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"cart"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Nov 2022 06:03:18 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "237"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 201,\n    \"message\": \"product added to cart successfully\",\n    \"data\": {\n        \"nama\": \"Tong Sampah\",\n        \"foto\": \"usr/static/toefue.jpg\",\n        \"harga\": 50000,\n        \"deskripsi\": \"tempat membuang sampah organik/anorganik yang overrated\",\n        \"kategori\": \"alat bersih-bersih\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "TestPorduction",
+			"item": [
+				{
+					"name": "GetProductFiltered Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://efishery-ecommerce-web.herokuapp.com/v1/products/filter?kategori=elektronik&hargaterendah=5000&hargatertinggi=30000",
+							"protocol": "https",
+							"host": [
+								"efishery-ecommerce-web",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"v1",
+								"products",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "kategori",
+									"value": "elektronik"
+								},
+								{
+									"key": "hargaterendah",
+									"value": "5000"
+								},
+								{
+									"key": "hargatertinggi",
+									"value": "30000"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GetProductFiltered",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://efishery-ecommerce-web.herokuapp.com/v1/products/filter?kategori=elektronik&hargaterendah=5000&hargatertinggi=30000",
+									"protocol": "https",
+									"host": [
+										"efishery-ecommerce-web",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"v1",
+										"products",
+										"filter"
+									],
+									"query": [
+										{
+											"key": "kategori",
+											"value": "elektronik"
+										},
+										{
+											"key": "hargaterendah",
+											"value": "5000"
+										},
+										{
+											"key": "hargatertinggi",
+											"value": "30000"
+										}
+									]
+								}
+							},
+							"status": "Found",
+							"code": 302,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 08 Nov 2022 11:05:12 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "53"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 204,\n    \"message\": \"no products found\",\n    \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "AddToCart Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nama\": \"Tong Sampah\",\n    \"foto\": \"usr/static/toefue.jpg\",\n    \"harga\": 50000,\n    \"kategori\": \"alat bersih-bersih\",\n    \"deskripsi\": \"tempat membuang sampah organik/anorganik yang overrated\" \n}\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://efishery-ecommerce-web.herokuapp.com/v1/cart",
+							"protocol": "https",
+							"host": [
+								"efishery-ecommerce-web",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"v1",
+								"cart"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Nambah Semsung",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nama\": \"Semsung\",\n    \"foto\": \"usr/static/semsmit.jpg\",\n    \"harga\": 3000000,\n    \"kategori\": \"alat komunikasi\",\n    \"deskripsi\": \"alat komunikasi mantap\" \n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://efishery-ecommerce-web.herokuapp.com/v1/cart",
+									"protocol": "https",
+									"host": [
+										"efishery-ecommerce-web",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"v1",
+										"cart"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 08 Nov 2022 11:31:40 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "200"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 201,\n    \"message\": \"product added to cart successfully\",\n    \"data\": {\n        \"nama\": \"Semsung\",\n        \"foto\": \"usr/static/semsmit.jpg\",\n        \"harga\": 3000000,\n        \"deskripsi\": \"alat komunikasi mantap\",\n        \"kategori\": \"alat komunikasi\"\n    }\n}"
+						},
+						{
+							"name": "Nambah Tongsampah",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nama\": \"Tong Sampah\",\n    \"foto\": \"usr/static/toefue.jpg\",\n    \"harga\": 50000,\n    \"kategori\": \"alat bersih-bersih\",\n    \"deskripsi\": \"tempat membuang sampah organik/anorganik yang overrated\" \n}\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://efishery-ecommerce-web.herokuapp.com/v1/cart",
+									"protocol": "https",
+									"host": [
+										"efishery-ecommerce-web",
+										"herokuapp",
+										"com"
+									],
+									"path": [
+										"v1",
+										"cart"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=UTF-8"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Nov 2022 06:03:18 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "237"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 201,\n    \"message\": \"product added to cart successfully\",\n    \"data\": {\n        \"nama\": \"Tong Sampah\",\n        \"foto\": \"usr/static/toefue.jpg\",\n        \"harga\": 50000,\n        \"deskripsi\": \"tempat membuang sampah organik/anorganik yang overrated\",\n        \"kategori\": \"alat bersih-bersih\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "GetCartList Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://efishery-ecommerce-web.herokuapp.com/v1/cart",
+							"protocol": "https",
+							"host": [
+								"efishery-ecommerce-web",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"v1",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostPayment Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "shafly",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/HilmiFaww/Downloads/Tugas Jarkom_18120004.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://efishery-ecommerce-web.herokuapp.com/v1/payment",
+							"protocol": "https",
+							"host": [
+								"efishery-ecommerce-web",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"v1",
+								"payment"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Hilmi",
+									"disabled": true
+								},
+								{
+									"key": "file",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProductsDetails Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://efishery-ecommerce-web.herokuapp.com/v1/products/1",
+							"protocol": "https",
+							"host": [
+								"efishery-ecommerce-web",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"v1",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProductList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://efishery-ecommerce-web.herokuapp.com/v1/products",
+							"protocol": "https",
+							"host": [
+								"efishery-ecommerce-web",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
