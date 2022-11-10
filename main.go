@@ -6,6 +6,7 @@ import (
 	"efishery-ecommerce/repository"
 	"efishery-ecommerce/routes"
 	"efishery-ecommerce/usecase"
+	"os"
 
 	"github.com/labstack/echo/v4"
 )
@@ -25,5 +26,5 @@ func main() {
 	productHandler := handler.NewProductHandler(productUsecase)
 
 	routes.Routes(app, productHandler)
-	app.Logger.Fatal(app.Start(":0"))
+	app.Logger.Fatal(app.Start(":" + os.Getenv("PORT")))
 }
