@@ -49,5 +49,5 @@ func Database() {
 //}
 
 func AutoMigrate() {
-	DB.AutoMigrate(&entity.Product{}, &entity.Cart{})
+	DB.AutoMigrate(&entity.Product{}, &entity.Cart{}, &entity.Proof{})
 }

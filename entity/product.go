@@ -17,3 +17,10 @@ type Cart struct {
 	Kategori  string `json:"kategori"`
 	Deskripsi string `json:"deskripsi"`
 }
+
+type Proof struct {
+	ID           int64  `json:"id" gorm:"column:id;type:bigint;primaryKey;autoIncrement"`
+	Name         string `json:"name"`
+	Bukti        string `json:"bukti"`
+	IsCheckedOut bool   `json:"is_checked_out"`
+}

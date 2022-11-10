@@ -76,7 +76,6 @@ func (h ProductHandler) GetProductFilter(ctx echo.Context) error {
 			Data:    nil,
 		})
 	}
-	fmt.Println(len(products))
 	if len(products) == 0 {
 		return ctx.JSON(http.StatusFound, response.BaseResponse{
 			Code:    http.StatusNoContent,
@@ -94,13 +93,13 @@ func (h ProductHandler) GetProductFilter(ctx echo.Context) error {
 func (h ProductHandler) AddToCart(ctx echo.Context) error {
 	productRequest := new(response.AddToCartRequest)
 	if err := ctx.Bind(&productRequest); err != nil {
-		fmt.Println(err)
 		return ctx.JSON(http.StatusBadRequest, response.BaseResponse{
 			Code:    http.StatusBadRequest,
 			Message: "invalid req body",
 			Data:    nil,
 		})
 	}
+	fmt.Println(*productRequest)
 	productResponse, err := h.productUsecase.AddProductToCart(productRequest)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, response.BaseResponse{
@@ -137,5 +136,35 @@ func (h ProductHandler) GetCartList(ctx echo.Context) error {
 		Message: "successfully get list all products",
 		Data:    carts,
 	})
+}
 
+func (h ProductHandler) PostPayment(ctx echo.Context) error {
+	username := ctx.FormValue("username")
+	//-----------
+	// Read file
+	//-----------
+	// Source
+	file, err := ctx.FormFile("file")
+	if err != nil {
+		return err
+	}
+	filename := "./static/" + username + "_proof.pdf" // ini harus diubah sesuai hosting nanti
+	proofRequest := response.PostProofResponse{
+		Name:         username,
+		Bukti:        filename,
+		IsCheckedOut: true,
+	}
+	err = h.productUsecase.UploadProof(proofRequest, file)
+	if err != nil {
+		return ctx.JSON(http.StatusBadRequest, response.BaseResponse{
+			Code:    http.StatusBadRequest,
+			Message: "upload payment proof failed",
+			Data:    err,
+		})
+	}
+	return ctx.JSON(http.StatusOK, response.BaseResponse{
+		Code:    http.StatusOK,
+		Message: "successfully uploaded proof",
+		Data:    "saved at: " + filename,
+	})
 }

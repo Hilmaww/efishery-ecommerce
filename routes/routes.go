@@ -25,6 +25,6 @@ func Routes(app *echo.Echo, productHandler *handler.ProductHandler) {
 	r.GET("/products/filter", productHandler.GetProductFilter)
 	r.POST("/cart", productHandler.AddToCart)
 	r.GET("/cart", productHandler.GetCartList)
-	//r.GET("/payment", productHandler.PostPayment)
+	r.POST("/payment", productHandler.PostPayment)
 
 }

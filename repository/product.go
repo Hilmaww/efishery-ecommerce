@@ -11,6 +11,8 @@ type IProductRepository interface {
 	GetFiltered(category string, hargaterendah string, hargatertinggi string) ([]entity.Product, error)
 	AddToCart(entity.Cart) error
 	GetCartAll() ([]entity.Cart, error)
+	DeleteCartList() error
+	UploadProofDirectory(proof entity.Proof) error
 }
 
 type ProductRepository struct {
@@ -60,7 +62,7 @@ func (u ProductRepository) GetFiltered(category string, hargaterendah string, ha
 }
 
 func (u ProductRepository) AddToCart(cart entity.Cart) error {
-	if err := u.db.Create(&cart).Error; err != nil {
+	if err := u.db.Debug().Create(&cart).Error; err != nil {
 		return err
 	}
 	return nil
@@ -71,4 +73,18 @@ func (u ProductRepository) GetCartAll() ([]entity.Cart, error) {
 		return nil, nil
 	}
 	return carts, nil
+}
+func (u ProductRepository) DeleteCartList() error {
+	var cart entity.Cart
+	if err := u.db.Debug().Where("ID >= ?", 1).Delete(&cart).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u ProductRepository) UploadProofDirectory(proof entity.Proof) error {
+	if err := u.db.Debug().Create(&proof).Error; err != nil {
+		return err
+	}
+	return nil
 }

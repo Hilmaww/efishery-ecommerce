@@ -39,3 +39,9 @@ type GetCartResponse struct {
 	Harga    int    `json:"harga"`
 	Kategori string `json:"kategori"`
 }
+
+type PostProofResponse struct {
+	Name         string `json:"name"`
+	Bukti        string `json:"bukti"`
+	IsCheckedOut bool   `json:"is_checked_out"`
+}

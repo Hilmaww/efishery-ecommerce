@@ -4,7 +4,11 @@ import (
 	"efishery-ecommerce/entity"
 	"efishery-ecommerce/entity/response"
 	"efishery-ecommerce/repository"
+	"fmt"
 	"github.com/jinzhu/copier"
+	"io"
+	"mime/multipart"
+	"os"
 )
 
 type IProductUsecase interface {
@@ -13,6 +17,7 @@ type IProductUsecase interface {
 	GetFilteredProduct(category string, hargaterendah string, hargatertinggi string) ([]response.GetProductResponse, error)
 	AddProductToCart(req *response.AddToCartRequest) (response.AddToCartRequest, error)
 	GetCartList() ([]response.GetCartResponse, error)
+	UploadProof(proofRequest response.PostProofResponse, file *multipart.FileHeader) error
 }
 type ProductUsecase struct {
 	productRepository repository.IProductRepository
@@ -73,4 +78,38 @@ func (u ProductUsecase) GetCartList() ([]response.GetCartResponse, error) {
 	var cartsResponse []response.GetCartResponse
 	copier.Copy(&cartsResponse, &carts)
 	return cartsResponse, nil
+}
+
+func (u ProductUsecase) UploadProof(proofRequest response.PostProofResponse, file *multipart.FileHeader) error {
+	src, err := file.Open()
+	if err != nil {
+		return err
+	}
+	defer src.Close()
+
+	// Destination
+	filename := proofRequest.Bukti // ini harus diubah sesuai hosting nanti
+	dst, err := os.Create(filename)
+	if err != nil {
+		fmt.Println("error in creation")
+		return err
+	}
+	defer dst.Close()
+
+	// Copy
+	if _, err = io.Copy(dst, src); err != nil {
+		return err
+	}
+
+	var proof entity.Proof
+	copier.Copy(&proof, &proofRequest)
+	err = u.productRepository.UploadProofDirectory(proof)
+	if err != nil {
+		return err
+	}
+	err = u.productRepository.DeleteCartList()
+	if err != nil {
+		return err
+	}
+	return nil
 }
