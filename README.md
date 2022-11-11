@@ -13,6 +13,21 @@
     Sebuah UMKM ingin melayani pelanggan secara digital melalui internet. Pelayanan yang ingin dicakup dalam sistem ecommerce ini adalah pengecekan barang, pemilihan barang yang ingin dibeli, serta pengiriman bukti pembayaran. 
     Desain arsitektur dibuat dengan sederhana supaya para Front End Engineer dapat menampilkan layanan dengan mudah.
 
+## How To Run Program ##
+### Installation ###
+`go get https://github.com/Hilmaww/efishery-ecommerce`
+
+### Try It Yourself ###
+1. Start your Postgresql server
+2. Run this code in your directory of choice,
+
+`
+cd efishery-ecommerce
+go mod tidy
+go run .
+`
+
+3. use my [Postman collection](efishery_ecommerce_API.postman_collection.json) to test it. Import the json into your Postman app, then send the message.
 ## Detailed Design ##
 ### Database Design ###
 Database akan dibuat sebagai berikut,
