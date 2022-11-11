@@ -16,7 +16,7 @@
 ## How To Run Program ##
 ### Install & Start Server ###
 1. Start your Postgresql server
-2. Run this code in your directory of choice,
+2. Run this code on the terminal in your directory of choice,
 ```bash
 go get github.com/Hilmaww/efishery-ecommerce
 cd efishery-ecommerce
