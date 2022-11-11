@@ -15,17 +15,18 @@
 
 ## How To Run Program ##
 ### Installation ###
-`go get https://github.com/Hilmaww/efishery-ecommerce`
+```go
+go get https://github.com/Hilmaww/efishery-ecommerce
+```
 
 ### Try It Yourself ###
 1. Start your Postgresql server
 2. Run this code in your directory of choice,
-
-`
-cd efishery-ecommerce
-go mod tidy
+```bash
+cd efishery-ecommerce\n
+go mod tidy\n
 go run .
-`
+```
 
 3. use my [Postman collection](efishery_ecommerce_API.postman_collection.json) to test it. Import the json into your Postman app, then send the message.
 ## Detailed Design ##
