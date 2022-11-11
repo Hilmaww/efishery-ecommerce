@@ -14,15 +14,11 @@
     Desain arsitektur dibuat dengan sederhana supaya para Front End Engineer dapat melayani permintaan dengan mudah.
 
 ## How To Run Program ##
-### Installation ###
-```go
-go get github.com/Hilmaww/efishery-ecommerce
-```
-
-### Try It Yourself ###
+### Install & Start Server ###
 1. Start your Postgresql server
 2. Run this code in your directory of choice,
 ```bash
+go get github.com/Hilmaww/efishery-ecommerce
 cd efishery-ecommerce
 go mod tidy
 go run .
