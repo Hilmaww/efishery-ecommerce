@@ -16,7 +16,7 @@
 ## How To Run Program ##
 ### Installation ###
 ```go
-go get https://github.com/Hilmaww/efishery-ecommerce
+go get github.com/Hilmaww/efishery-ecommerce
 ```
 
 ### Try It Yourself ###
